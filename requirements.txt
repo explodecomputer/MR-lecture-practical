@@ -1,0 +1,14 @@
+For the setup need the following R packages:
+
+github_install("MRCIEU/TwoSampleMR")
+psych
+dplyr
+ggplot2
+plyr
+
+R	
+R package TwoSampleMR	https://github.com/MRCIEU/TwoSampleMR/
+R package MRInstruments	https://github.com/MRCIEU/MRInstruments
+R package RadialMR	https://github.com/wspiller/radialmr
+R package MendelianRandomization	https://cran.r-project.org/web/packages/MendelianRandomization/index.html
+
