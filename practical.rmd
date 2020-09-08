@@ -32,7 +32,7 @@ In order to perform MR, you need to obtain the necessary data, put it into the f
 
 There are now several software packages available for MR analysis, for example
 
-- [MR-Base](http://www.mrbase.org/) which is built upon the [TwoSampleMR](https://github.com/MRCIEU/TwoSampleMR/) package, developed in Bristol
+- [TwoSampleMR](https://github.com/MRCIEU/TwoSampleMR/) package, developed in Bristol (part of the [MR-Base](https://www.mrbase.org/) project)
 - [Mendelian randomization R package](https://cran.r-project.org/package=MendelianRandomization), developed by Steve Burgess at Cambridge
 - [GSMR R package](http://cnsgenomics.com/software/gsmr/) developed by Jian Yang and colleagues at University of Queensland
 - [RadialMR R package](https://github.com/wspiller/radialmr) developed by Jack Bowden and Wes Spiller
@@ -40,11 +40,11 @@ There are now several software packages available for MR analysis, for example
 - several more also arising now
 - For two-stage least squares analysis with individual level data use the [systemfit R package](https://cran.r-project.org/web/packages/systemfit/index.html) or ivreg in stata
 
-For this practical we will be using MR-Base because it integrates a database of GWAS summary data with functions for harmonising the data and analysing etc. It also can be used easily with several of the other packages.
+For this practical we will be predominantly using the TwoSampleMR that can connect to the OpenGWAS database of GWAS summary data (https://gwas.mrcieu.ac.uk/) with functions for harmonising the data and analysing etc. It also can be used easily with several of the other packages.
 
 You can find extended documentation on how to conduct various MR analyses here [https://mrcieu.github.io/TwoSampleMR/](https://mrcieu.github.io/TwoSampleMR/)
 
-Sometimes the MR-Base servers have problems, so all the data has been pre-extracted here in case it is not available from the servers
+Sometimes the OpenGWAS servers have problems, so all the data has been pre-extracted here in case it is not available from the servers
 
 ```r
 load("pre_extracted.rdata")
@@ -66,7 +66,7 @@ This schematic shows the steps required to perform two-sample MR
 ![](inc/schematic.png)
 
 
-## Data available in MR-Base
+## Data available in OpenGWAS
 
 We want to find the effect of an exposure on an outcome. An exposure can be analysed if instruments (i.e. GWAS hits) have been identified for it. Hence the only data required are the following for the top hits: rsid, effect size, standard error, effect allele. These are often recorded in various databases such as GWAS catalog etc. To test the effect of that exposure on the outcome, we need those same SNPs' effects on the outcome. There is no guarantee that they will have previously been GWAS hits, so a trait can only generally be analysed as an outcome if it has complete GWAS summary data available.
 
@@ -78,7 +78,7 @@ We want to find the effect of an exposure on an outcome. An exposure can be anal
 
 ### 1. The influence of urate levels in blood on coronary heart disease
 
-This was the subject of an analysis by [White et al 2016][1]. First we need to obtain instruments for urate levels. A quick way to do this is to see if a suitably powered urate GWAS is available in MR-Base, and extract the LD-clumped top hits
+This was the subject of an analysis by [White et al 2016][1]. First we need to obtain instruments for urate levels. A quick way to do this is to see if a suitably powered urate GWAS is available in OpenGWAS, and extract the LD-clumped top hits
 
 
 ```r
@@ -96,7 +96,7 @@ dim(exposure_1)
 max(exposure_1$pval.exposure)
 ```
 
-We have extracted 25 instruments for urate levels from this study.
+We have extracted 27 instruments for urate levels from this study.
 
 Next we need to get the corresponding effects from a suitably powered coronary heart disease study
 
@@ -129,7 +129,7 @@ dim(dat_1)
 table(dat_1$mr_keep)
 ```
 
-**DISCUSS: What has happened here - why are only 24 SNPs being retained for MR analysis?**
+**DISCUSS: What has happened here - why are only 25 SNPs being retained for MR analysis?**
 
 
 We can now perform MR analysis on this harmonised dataset using the IVW method
